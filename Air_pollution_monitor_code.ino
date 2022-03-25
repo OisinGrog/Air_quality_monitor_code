@@ -79,7 +79,7 @@ void setup()
   iaqSensor.updateSubscription(sensorList, 10, BSEC_SAMPLE_RATE_LP);
   checkIaqSensorStatus();
   // Print the header
-  output = "Timestamp [ms], raw temperature [°C], pressure [hPa], raw relative humidity [%], gas [Ohm], IAQ, IAQ accuracy, temperature [°C], relative humidity [%], Static IAQ, CO2 equivalent, breath VOC equivalent";
+  output = "Timestamp [ms], raw temperature [°C], pressure [hPa], raw relative humidity [%], gas [KOhm], IAQ, IAQ accuracy, temperature [°C], relative humidity [%], Static IAQ, CO2 equivalent, breath VOC equivalent";
   Serial.println(output); // prints the name of each variable that is printed using output further down in the code
 }
 
@@ -142,10 +142,10 @@ void loop()
   display.println(" hPa");
   
   Serial.print("Gas = ");
-  Serial.print(iaqSensor.gasResistance);
+  Serial.print(iaqSensor.gasResistance / 1000);
   Serial.println(" KOhms");
   display.print("Gas: ");
-  display.print(iaqSensor.gasResistance);
+  display.print(iaqSensor.gasResistance / 1000);
   display.println(" KOhms");
    
   Serial.print("CO2 equiv = "); 
@@ -167,7 +167,7 @@ void loop()
   ESP_BT.println(iaqSensor.temperature);
   ESP_BT.println(iaqSensor.humidity); 
   ESP_BT.println(iaqSensor.pressure / 100);
-  ESP_BT.println(iaqSensor.gasResistance); 
+  ESP_BT.println(iaqSensor.gasResistance / 1000); 
   ESP_BT.println(iaqSensor.co2Equivalent); 
   ESP_BT.println(iaqSensor.breathVocEquivalent);
   
